@@ -1,0 +1,788 @@
+{
+	"info": {
+		"name": "Gazel.Demo.ToDo",
+		"_postman_id": "a1bc4e82-f00a-aac3-bc4d-ea43bbce3cea",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Board",
+			"item": [
+				{
+					"name": "/boards?name={name}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"postman column\"\n}"
+						},
+						"url": {
+							"raw": "{{root}}/boards?name=t",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"boards"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "t",
+									"equals": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/boards",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "postman board",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{root}}/boards",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"boards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/boards/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"postman column\"\n}"
+						},
+						"url": {
+							"raw": "{{root}}/boards/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"boards",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/boards/{id}",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"test board\"\n}"
+						},
+						"url": {
+							"raw": "{{root}}/boards/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"boards",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/boards/{id}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{root}}/boards/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"boards",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/boards/{id}/columns",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"done\"\n}"
+						},
+						"url": {
+							"raw": "{{root}}/boards/1/columns",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"boards",
+								"1",
+								"columns"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/boards/[id}/columns",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"Board2\"\n}"
+						},
+						"url": {
+							"raw": "{{root}}/boards/1/columns",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"boards",
+								"1",
+								"columns"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/boards/{id}/users",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"user_id\":2\n}"
+						},
+						"url": {
+							"raw": "{{root}}/boards/1/users",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"boards",
+								"1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/boards/{id}/users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"Board2\"\n}"
+						},
+						"url": {
+							"raw": "{{root}}/boards/1/users",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"boards",
+								"1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/boards/{id}/users/{id}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{root}}/boards/1/users/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"boards",
+								"1",
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Column",
+			"item": [
+				{
+					"name": "/columns/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{root}}/columns/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"columns",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/columns/{id}",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"to-do\"\n}"
+						},
+						"url": {
+							"raw": "{{root}}/columns/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"columns",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/columns/{id}/tasks",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"deploy to do app\"\n}"
+						},
+						"url": {
+							"raw": "{{root}}/columns/1/tasks",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"columns",
+								"1",
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/columns/{id}/tasks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{root}}/columns/1/tasks",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"columns",
+								"1",
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/columns/{id}/clear",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{root}}/columns/1/clear",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"columns",
+								"1",
+								"clear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/columns/{id}/move_tasks_and_delete",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "target_column_id",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{root}}/columns/1/move_tasks_and_delete",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"columns",
+								"1",
+								"move_tasks_and_delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/columns/{id}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{root}}/columns/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"columns",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "/users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{root}}/users?name=test",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "test",
+									"equals": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"test\",\n\t\"email\":\"test@gazel.io\",\n\t\"password\":\"1234\"\n}"
+						},
+						"url": {
+							"raw": "{{root}}/users",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "test@gazel.io",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "1234",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{root}}/users/login",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{root}}/users/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/{id}/tasks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{root}}/users/1/tasks",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"users",
+								"1",
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/{id}/boards",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{root}}/users/1/boards",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"users",
+								"1",
+								"boards"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Task",
+			"item": [
+				{
+					"name": "/tasks/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{root}}/tasks/2",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"tasks",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/tasks/{id}",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"name\":\"deploy and test todo app\",\r\n\t\"notes\":\"updated\"\r\n}"
+						},
+						"url": {
+							"raw": "{{root}}/tasks/2",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"tasks",
+								"2"
+							]
+						},
+						"description": "Parameters: name"
+					},
+					"response": []
+				},
+				{
+					"name": "/tasks/{id}",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"due_date\":\"20190101120000\"\r\n}"
+						},
+						"url": {
+							"raw": "{{root}}/tasks/2",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"tasks",
+								"2"
+							]
+						},
+						"description": "Parameters: name"
+					},
+					"response": []
+				},
+				{
+					"name": "/tasks/{id}/move",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "column_id",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{root}}/tasks/2/move",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"tasks",
+								"2",
+								"move"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/tasks/{id}/assign",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "user_id",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{root}}/tasks/2/assign",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"tasks",
+								"2",
+								"assign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/tasks/{id}/complete",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{root}}/tasks/2/complete",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"tasks",
+								"2",
+								"complete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/tasks/{id}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{root}}/tasks/2",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"tasks",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
