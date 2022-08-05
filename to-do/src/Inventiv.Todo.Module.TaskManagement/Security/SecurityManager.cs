@@ -5,61 +5,58 @@ using Inventiv.Todo.Module.TaskManagement.Service;
 
 namespace Inventiv.Todo.Module.TaskManagement.Security
 {
-	public class SecurityManager : ISessionManager, IUserManagerService
-	{
-		#region IoC
+    public class SecurityManager : ISessionManager, IUserManagerService, IAuthManagerService
+    {
+        #region IoC
 
-		private readonly IModuleContext context;
+        private readonly IModuleContext context;
 
-		public SecurityManager(IModuleContext context)
-		{
-			this.context = context;
-		}
+        public SecurityManager(IModuleContext context)
+        {
+            this.context = context;
+        }
 
-		#endregion
+        #endregion
 
-		public User CreateUser(string name, Email email, Password password)
-		{
-			return context.New<User>().With(name, email, password);
-		}
+        public User CreateUser(string name, Email email, Password password) => context.New<User>().With(name, email, password);
 
-		public UserSession Login(Email email, Password password)
-		{
-			var user = context.Query<Users>().SingleBy(email, password);
+        public UserSession Login(Email email, Password password)
+        {
+            var user = context.Query<Users>().SingleBy(email, password);
 
-			if (user == null)
-			{
-				throw new AuthenticationRequiredException(); //This exception comes from Gazel and is a handled exception with error code 20001
-			}
+            if (user == null)
+            {
+                throw new AuthenticationRequiredException(); //This exception comes from Gazel and is a handled exception with error code 20001
+            }
 
-			return user.CreateNewSession();
-		}
+            return user.CreateNewSession();
+        }
 
-		private ISession GetSession(AppToken appToken)
-		{
-			if (appToken.IsEmpty)
-			{
-				return context.New<AnonymousSession>();
-			}
+        private ISession GetSession(AppToken appToken)
+        {
+            if (appToken.IsEmpty)
+            {
+                return context.New<AnonymousSession>();
+            }
 
-			return context.Query<UserSessions>().SingleByToken(appToken);
-		}
+            return context.Query<UserSessions>().SingleByToken(appToken);
+        }
 
-		#region Api Mappings
+        #region Api Mappings
 
-		#region Security
+        #region Security
 
-		ISession ISessionManager.GetSession(AppToken appToken) => GetSession(appToken);
+        ISession ISessionManager.GetSession(AppToken appToken) => GetSession(appToken);
 
-		#endregion
+        #endregion
 
-		#endregion
+        #endregion
 
-		#region Web Service Mappings
+        #region Web Service Mappings
 
-		IUserInfo IUserManagerService.CreateUser(string name, Email email, Password password) => CreateUser(name, email, password);
-		ISessionInfo IUserManagerService.Login(Email mail, Password password) => Login(mail, password);
+        IUserInfo IUserManagerService.CreateUser(string name, Email email, Password password) => CreateUser(name, email, password);
+        ISessionInfo IAuthManagerService.Login(Email mail, Password password) => Login(mail, password);
 
-		#endregion
-	}
+        #endregion
+    }
 }

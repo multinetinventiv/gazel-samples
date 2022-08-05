@@ -21,12 +21,14 @@ namespace Inventiv.Todo.App.Service
                 service: c => c.Routine("http://localhost:5000/service"),
                 logging: c => c.Log4Net(LogLevel.Info, l => l.DefaultConsoleAppenders()),
                 authentication: c => c.AllowAnonymous(),
-                authorization: c => c.AllowAll()
+                authorization: c => c.AllowAll(),
+                fileSystem: c => c.Local("Files")
             );
         }
 
         public void Configure(IApplicationBuilder app)
         {
+            app.UseRoutineInDevelopmentMode();
             app.UseGazel();
         }
     }

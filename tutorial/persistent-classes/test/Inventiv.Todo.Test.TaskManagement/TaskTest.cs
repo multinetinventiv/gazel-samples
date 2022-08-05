@@ -8,6 +8,11 @@ namespace Inventiv.Todo.Test.TaskManagement
     [TestFixture]
     public class TaskTest : TestBase
     {
+        static TaskTest()
+        {
+            Config.RootNamespace = "Inventiv";
+        }
+        
         [Test]
         public void CreateTask__creates_a_task_using_given_name()
         {

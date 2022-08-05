@@ -3,82 +3,82 @@ using NUnit.Framework;
 
 namespace Inventiv.ToDo.Test.UnitTest.TaskManagement.BoardManagement
 {
-	[TestFixture]
-	public class CreateUpdateColumn : ToDoTestBase
-	{
-		[Test]
-		public void GIVEN_there_exists_a_board__WHEN_user_adds_a_new_column_to_it__THEN_the_board_lists_it_among_its_columns()
-		{
-			var board = CreateBoard();
+    [TestFixture]
+    public class CreateUpdateColumn : ToDoTestBase
+    {
+        [Test]
+        public void GIVEN_there_exists_a_board__WHEN_user_adds_a_new_column_to_it__THEN_the_board_lists_it_among_its_columns()
+        {
+            var board = CreateBoard();
 
-			BeginTest();
+            BeginTest();
 
-			var column = board.AddColumn("column");
+            var column = board.AddColumn("column");
 
-			Verify.ObjectIsPersisted(column);
-			Assert.AreEqual("column", column.Name);
+            Verify.ObjectIsPersisted(column);
+            Assert.AreEqual("column", column.Name);
 
-			var boardColumns = board.GetColumns();
+            var boardColumns = board.GetColumns();
 
-			Assert.AreEqual(1, boardColumns.Count);
-			Assert.AreEqual(column, boardColumns[0]);
-		}
+            Assert.AreEqual(1, boardColumns.Count);
+            Assert.AreEqual(column, boardColumns[0]);
+        }
 
-		[TestCase(null)]
-		[TestCase("")]
-		[TestCase(" ")]
-		public void GIVEN_there_exists_a_board__WHEN_user_creates_a_new_column_with_an_empty_name__THEN_system_gives_an_error(string name)
-		{
-			var board = CreateBoard();
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase(" ")]
+        public void GIVEN_there_exists_a_board__WHEN_user_creates_a_new_column_with_an_empty_name__THEN_system_gives_an_error(string name)
+        {
+            var board = CreateBoard();
 
-			BeginTest();
+            BeginTest();
 
-			Assert.Throws<TaskManagementException.RequiredParameterIsMissing>(() =>
-			{
-				board.AddColumn(name);
-			});
-		}
+            Assert.Throws<TaskManagementException.RequiredParameterIsMissing>(() =>
+            {
+                board.AddColumn(name);
+            });
+        }
 
-		[Test]
-		public void GIVEN_there_exists_a_column__WHEN_user_updates_its_name__THEN_column_is_listed_with_its_new_name()
-		{
-			var column = CreateColumn("test");
+        [Test]
+        public void GIVEN_there_exists_a_column__WHEN_user_updates_its_name__THEN_column_is_listed_with_its_new_name()
+        {
+            var column = CreateColumn("test");
 
-			BeginTest();
+            BeginTest();
 
-			column.Update("newTest");
+            column.Update("newTest");
 
-			Assert.AreEqual("newTest", column.Name);
-		}
+            Assert.AreEqual("newTest", column.Name);
+        }
 
-		[TestCase(null)]
-		[TestCase("")]
-		[TestCase(" ")]
-		public void GIVEN_there_exists_a_column__WHEN_user_updates_the_column_with_an_empty_name__THEN_system_gives_an_error(string name)
-		{
-			var column = CreateColumn();
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase(" ")]
+        public void GIVEN_there_exists_a_column__WHEN_user_updates_the_column_with_an_empty_name__THEN_system_gives_an_error(string name)
+        {
+            var column = CreateColumn();
 
-			BeginTest();
+            BeginTest();
 
-			Assert.Throws<TaskManagementException.RequiredParameterIsMissing>(() =>
-			{
-				column.Update(name);
-			});
-		}
+            Assert.Throws<TaskManagementException.RequiredParameterIsMissing>(() =>
+            {
+                column.Update(name);
+            });
+        }
 
-		[Test]
-		public void GIVEN_there_exists_a_column_with_tasks__WHEN_user_clears_the_column__THEN_all_tasks_under_that_column_will_be_deleted()
-		{
-			var column = CreateColumn(taskCount: 2);
-			var tasks = column.GetTasks();
+        [Test]
+        public void GIVEN_there_exists_a_column_with_tasks__WHEN_user_clears_the_column__THEN_all_tasks_under_that_column_will_be_deleted()
+        {
+            var column = CreateColumn(taskCount: 2);
+            var tasks = column.GetTasks();
 
-			BeginTest();
+            BeginTest();
 
-			column.Clear();
+            column.Clear();
 
-			Assert.IsEmpty(column.GetTasks());
-			Verify.ObjectIsDeleted(tasks[0]);
-			Verify.ObjectIsDeleted(tasks[1]);
-		}
-	}
+            Assert.IsEmpty(column.GetTasks());
+            Verify.ObjectIsDeleted(tasks[0]);
+            Verify.ObjectIsDeleted(tasks[1]);
+        }
+    }
 }

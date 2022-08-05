@@ -1,7 +1,11 @@
 ﻿using Gazel.Logging;
+using Gazel.ServiceClient;
+using Gazel.Web;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Routine;
+using System.Threading.Tasks;
 
 namespace Inventiv.Todo.App.Rest
 {
@@ -13,17 +17,39 @@ namespace Inventiv.Todo.App.Rest
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvcCore().AddApiExplorer();
             services.AddGazelApiApplication(configuration,
-                serviceClient: c => c.Routine("http://localhost:5000/service"),
-                restApi: c => c.Standard(),
+                serviceClient: c => c.Routine(ServiceUrl.Localhost(5000)),
+                restApi: c => c.Standard(
+                    statusCodeOptions: o =>
+                    {
+                        o.ExceptionBody = (code, message) =>
+                            new CodeDescription
+                            {
+                                Code = code,
+                                Description = message
+                            };
+                    }),
                 logging: c => c.Log4Net(LogLevel.Info, l => l.DefaultConsoleAppenders())
             );
+            services.AddSwaggerGen();
         }
 
         public void Configure(IApplicationBuilder app)
         {
+            app.UseDeveloperExceptionPage();
+            app.UseSwagger();
+            app.UseSwaggerUI();
             app.UseGazel();
             app.UseCors();
+            app.UseEndpoints(endpoints =>
+                        endpoints.MapGet("/", context =>
+                        {
+                            context.Response.Redirect("/swagger/index.html");
+
+                            return Task.CompletedTask;
+                        })
+                    );
         }
     }
 }
