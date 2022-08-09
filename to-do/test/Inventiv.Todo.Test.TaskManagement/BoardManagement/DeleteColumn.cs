@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace Inventiv.Todo.Test.TaskManagement.TaskManagement.BoardManagement
+namespace Inventiv.Todo.Test.TaskManagement.BoardManagement
 {
     [TestFixture]
     public class DeleteColumn : ToDoTestBase

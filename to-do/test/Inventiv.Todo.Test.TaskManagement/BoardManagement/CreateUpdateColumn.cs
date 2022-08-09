@@ -1,7 +1,7 @@
 ﻿using Inventiv.Todo.Module.TaskManagement;
 using NUnit.Framework;
 
-namespace Inventiv.Todo.Test.TaskManagement.TaskManagement.BoardManagement
+namespace Inventiv.Todo.Test.TaskManagement.BoardManagement
 {
     [TestFixture]
     public class CreateUpdateColumn : ToDoTestBase

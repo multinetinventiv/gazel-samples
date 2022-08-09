@@ -3,7 +3,7 @@ using System.Security;
 using Gazel.Security;
 using NUnit.Framework;
 
-namespace Inventiv.Todo.Test.TaskManagement.TaskManagement.Security
+namespace Inventiv.Todo.Test.TaskManagement.Security
 {
     [TestFixture]
     public class Authentication : ToDoTestBase
