@@ -18,7 +18,7 @@ namespace Inventiv.Todo.Test.TaskManagement
         {
             var taskManager = Context.Get<TaskManager>();
 
-            Assert.AreEqual("Hello World", taskManager.SayHello());
+            Assert.AreEqual("Hello World!", taskManager.SayHello());
         }
     }
 }

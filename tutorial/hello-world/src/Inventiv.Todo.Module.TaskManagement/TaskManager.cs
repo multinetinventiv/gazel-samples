@@ -6,7 +6,7 @@ namespace Inventiv.Todo.Module.TaskManagement
     {
         public string SayHello()
         {
-            return "Hello World";
+            return "Hello World!";
         }
     }
 }
