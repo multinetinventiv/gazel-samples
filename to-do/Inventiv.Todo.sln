@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventiv.Todo.Module.TaskMa
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{8B2848E6-A959-47E2-80B8-612F5B73B4DE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventiv.Todo.Test.UnitTest", "test\Inventiv.Todo.Test.TaskManagement\Inventiv.Todo.Test.UnitTest.csproj", "{B63A92FC-D710-4464-B578-75F76FEF9F0F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventiv.Todo.Test.TaskManagement", "test\Inventiv.Todo.Test.TaskManagement\Inventiv.Todo.Test.TaskManagement.csproj", "{B63A92FC-D710-4464-B578-75F76FEF9F0F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

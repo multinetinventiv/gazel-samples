@@ -1,7 +1,7 @@
 ﻿using Inventiv.Todo.Module.TaskManagement;
 using NUnit.Framework;
 
-namespace Inventiv.ToDo.Test.UnitTest.TaskManagement.BoardManagement
+namespace Inventiv.Todo.Test.TaskManagement.TaskManagement.BoardManagement
 {
     [TestFixture]
     public class AddRemoveUsersToBoard : ToDoTestBase

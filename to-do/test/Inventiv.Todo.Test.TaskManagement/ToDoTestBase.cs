@@ -9,7 +9,7 @@ using Gazel.UnitTesting;
 using Moq;
 using Gazel;
 
-namespace Inventiv.ToDo.Test.UnitTest
+namespace Inventiv.Todo.Test.TaskManagement
 {
     /// <summary>
     /// Base class for all test fixtures. Includes setup and create helper methods to make test cases cleaner.

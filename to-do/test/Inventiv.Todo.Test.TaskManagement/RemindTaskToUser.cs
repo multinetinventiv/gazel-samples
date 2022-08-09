@@ -1,10 +1,9 @@
 ﻿using Gazel;
 using Inventiv.Todo.Module.TaskManagement.Jobs;
-using Inventiv.ToDo.Test.UnitTest;
 using Moq;
 using NUnit.Framework;
 
-namespace Inventiv.Todo.Test.UnitTest
+namespace Inventiv.Todo.Test.TaskManagement
 {
     [TestFixture]
     public class RemindTaskToUser : ToDoTestBase

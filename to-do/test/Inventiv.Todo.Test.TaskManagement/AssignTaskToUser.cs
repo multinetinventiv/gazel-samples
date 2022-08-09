@@ -1,8 +1,7 @@
 ﻿using Inventiv.Todo.Module.TaskManagement;
-using Inventiv.ToDo.Test.UnitTest;
 using NUnit.Framework;
 
-namespace Inventiv.Todo.Test.UnitTest
+namespace Inventiv.Todo.Test.TaskManagement
 {
     [TestFixture]
     public class AssignTaskToUser : ToDoTestBase
