@@ -1,0 +1,60 @@
+name: Regular Checks
+on: push
+jobs:
+  wait-for-publish:
+    name: Wait for Gazel Package Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait 300s
+        run: sleep 300s
+        shell: bash
+  build-and-test:
+    name: Build & Test
+    needs: wait-for-publish
+    strategy:
+      max-parallel: 2
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: |
+            6.0.x
+      - name: empty
+        working-directory: empty
+        run: |
+          dotnet build -c Release
+          dotnet test -c Release
+      - name: tutorial/hello-world
+        working-directory: tutorial/hello-world
+        run: |
+          dotnet build -c Release
+          dotnet test -c Release
+      - name: tutorial/persistent-classes
+        working-directory: tutorial/persistent-classes
+        run: |
+          dotnet build -c Release
+          dotnet test -c Release
+      - name: tutorial/database-transactions
+        working-directory: tutorial/database-transactions
+        run: |
+          dotnet build -c Release
+          dotnet test -c Release
+      - name: tutorial/query-classes
+        working-directory: tutorial/query-classes
+        run: |
+          dotnet build -c Release
+          dotnet test -c Release
+      - name: tutorial/rest-api
+        working-directory: tutorial/rest-api
+        run: |
+          dotnet build -c Release
+          dotnet test -c Release
+      - name: todo
+        working-directory: to-do
+        run: |
+          dotnet build -c Release
+          dotnet test -c Release
