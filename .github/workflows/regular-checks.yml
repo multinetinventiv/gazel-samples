@@ -39,6 +39,7 @@ jobs:
             fi
   build-and-test:
     name: Build & Test
+    if: always()
     needs: wait-for-publish
     strategy:
       max-parallel: 2
