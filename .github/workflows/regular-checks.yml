@@ -5,23 +5,26 @@ jobs:
     name: Wait for Gazel Package Deploy
     runs-on: ubuntu-latest
     outputs:
-      # Version number that is parsed from Directory.Build.props
+      # Version number that is parsed from empty/*.App.Servie.csproj
       version: ${{ steps.parse.outputs.version }}
-      # Flag to indicate a new version should be built or not.
-      #   true means it was already published
-      #   false means pack & push is required
-      action: ${{ steps.check.outputs.action }}
     steps:
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: |
+            5.0.x
+            6.0.x
       - name: Checkout Gazel Sample
         uses: actions/checkout@v2
       - name: Parse Version
         id: parse
         run: |
-          # 1. cat outputs content of Directory.Build.props file to stream editor (sed)
+          # 1. cat outputs content of Inventiv.Todo.App.Service.csproj file to stream editor (sed)
           # 2. first sed removes all lines except with Version info
-          # 3. second sed removes <Version> and </Version> and spaces
-          # 4. result is only version which is set to the $version variable
-          version=$(cat Directory.Build.props | sed -n '/<Version>/p' | sed '/[ <>a-zA-Z\/]/ s///g')
+          # 3. second sed removes roughness outside the version number
+          # 4. third sed removes first dot on version number
+          # 5. result is only version which is set to the $version variable
+          version=$(cat empty/src/Inventiv.Todo.App.Service/Inventiv.Todo.App.Service.csproj | sed -n '/Version/p' | sed '/[ \"<>=a-zA-Z\/]/ s///g' | sed 's/^.//')
           # value of $version is set as a step output
           echo "version="$version >> $GITHUB_OUTPUT
       - name: Nuget check
@@ -29,17 +32,17 @@ jobs:
         with:
           timeout_seconds: 70
           max_attempts: 10
+          polling_interval_seconds: 60
           command: |
             if wget -q --method=HEAD https://api.nuget.org/v3-flatcontainer/Gazel/${{ steps.parse.outputs.version }}/Gazel.nuspec
             then
               echo "Nuget onaylandı!"
+              dotnet restore empty/src/Inventiv.Todo.App.Service/Inventiv.Todo.App.Service.csproj
             else
-              sleep 60s
-              fail
+              exit 1
             fi
   build-and-test:
     name: Build & Test
-    if: always()
     needs: wait-for-publish
     strategy:
       max-parallel: 2
