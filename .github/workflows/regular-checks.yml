@@ -4,10 +4,39 @@ jobs:
   wait-for-publish:
     name: Wait for Gazel Package Deploy
     runs-on: ubuntu-latest
+    outputs:
+      # Version number that is parsed from Directory.Build.props
+      version: ${{ steps.parse.outputs.version }}
+      # Flag to indicate a new version should be built or not.
+      #   true means it was already published
+      #   false means pack & push is required
+      action: ${{ steps.check.outputs.action }}
     steps:
-      - name: Wait 300s
-        run: sleep 300s
-        shell: bash
+      - name: Checkout Gazel Sample
+        uses: actions/checkout@v2
+      - name: Parse Version
+        id: parse
+        run: |
+          # 1. cat outputs content of Directory.Build.props file to stream editor (sed)
+          # 2. first sed removes all lines except with Version info
+          # 3. second sed removes <Version> and </Version> and spaces
+          # 4. result is only version which is set to the $version variable
+          version=$(cat Directory.Build.props | sed -n '/<Version>/p' | sed '/[ <>a-zA-Z\/]/ s///g')
+          # value of $version is set as a step output
+          echo "version="$version >> $GITHUB_OUTPUT
+      - name: Nuget check
+        uses: nick-fields/retry@v2
+        with:
+          timeout_seconds: 70
+          max_attempts: 10
+          command: |
+            if wget -q --method=HEAD https://api.nuget.org/v3-flatcontainer/Gazel/${{ steps.parse.outputs.version }}/Gazel.nuspec
+            then
+              echo "Nuget onaylandı!"
+            else
+              sleep 60s
+              fail
+            fi
   build-and-test:
     name: Build & Test
     needs: wait-for-publish
