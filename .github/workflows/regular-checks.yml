@@ -31,7 +31,7 @@ jobs:
         uses: nick-fields/retry@v2
         with:
           timeout_seconds: 70
-          max_attempts: 10
+          max_attempts: 15
           polling_interval_seconds: 60
           command: |
             if wget -q --method=HEAD https://api.nuget.org/v3-flatcontainer/Gazel/${{ steps.parse.outputs.version }}/Gazel.nuspec
