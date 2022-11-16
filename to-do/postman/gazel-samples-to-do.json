@@ -189,7 +189,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"user_id\":1\n}"
+							"raw": "{\n\t\"userId\":1\n}"
 						},
 						"url": {
 							"raw": "{{root}}/boards/1/users",
@@ -295,7 +295,7 @@
 					"response": []
 				},
 				{
-					"name": "/columns/{id}/tasks",
+					"name": "/columns/{id}/task-cards",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -309,33 +309,33 @@
 							"raw": "{\n\t\"name\":\"deploy to do app\"\n}"
 						},
 						"url": {
-							"raw": "{{root}}/columns/1/tasks",
+							"raw": "{{root}}/columns/1/task-cards",
 							"host": [
 								"{{root}}"
 							],
 							"path": [
 								"columns",
 								"1",
-								"tasks"
+								"task-cards"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "/columns/{id}/tasks",
+					"name": "/columns/{id}/task-cards",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{root}}/columns/1/tasks",
+							"raw": "{{root}}/columns/1/task-cards",
 							"host": [
 								"{{root}}"
 							],
 							"path": [
 								"columns",
 								"1",
-								"tasks"
+								"task-cards"
 							]
 						}
 					},
@@ -361,7 +361,7 @@
 					"response": []
 				},
 				{
-					"name": "/columns/{id}/move_tasks_and_delete",
+					"name": "/columns/{id}/move-task-cards-and-delete",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -374,21 +374,21 @@
 							"mode": "urlencoded",
 							"urlencoded": [
 								{
-									"key": "target_column_id",
+									"key": "targetColumnId",
 									"value": "2",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{root}}/columns/1/move_tasks_and_delete",
+							"raw": "{{root}}/columns/1/move-task-cards-and-delete",
 							"host": [
 								"{{root}}"
 							],
 							"path": [
 								"columns",
 								"1",
-								"move_tasks_and_delete"
+								"move-task-cards-and-delete"
 							]
 						}
 					},
@@ -485,19 +485,19 @@
 					"response": []
 				},
 				{
-					"name": "/users/{id}/tasks",
+					"name": "/users/{id}/task-cards",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{root}}/users/1/tasks",
+							"raw": "{{root}}/users/1/task-cards",
 							"host": [
 								"{{root}}"
 							],
 							"path": [
 								"users",
 								"1",
-								"tasks"
+								"task-cards"
 							]
 						}
 					},
@@ -525,20 +525,20 @@
 			]
 		},
 		{
-			"name": "Task",
+			"name": "TaskCard",
 			"item": [
 				{
-					"name": "/tasks/{id}",
+					"name": "/task-cards/{id}",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{root}}/tasks/2",
+							"raw": "{{root}}/task-cards/2",
 							"host": [
 								"{{root}}"
 							],
 							"path": [
-								"tasks",
+								"task-cards",
 								"2"
 							]
 						}
@@ -546,7 +546,7 @@
 					"response": []
 				},
 				{
-					"name": "/tasks/{id}",
+					"name": "/task-cards/{id}",
 					"request": {
 						"method": "PATCH",
 						"header": [
@@ -560,12 +560,12 @@
 							"raw": "{\r\n\t\"name\":\"deploy and test todo app\",\r\n\t\"notes\":\"updated\"\r\n}"
 						},
 						"url": {
-							"raw": "{{root}}/tasks/2",
+							"raw": "{{root}}/task-cards/2",
 							"host": [
 								"{{root}}"
 							],
 							"path": [
-								"tasks",
+								"task-cards",
 								"2"
 							]
 						},
@@ -574,7 +574,7 @@
 					"response": []
 				},
 				{
-					"name": "/tasks/{id}",
+					"name": "/task-cards/{id}",
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -585,15 +585,15 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"due_date\":\"20190101120000\"\r\n}"
+							"raw": "{\r\n\t\"dueDate\":\"20190101120000\"\r\n}"
 						},
 						"url": {
-							"raw": "{{root}}/tasks/2",
+							"raw": "{{root}}/task-cards/2",
 							"host": [
 								"{{root}}"
 							],
 							"path": [
-								"tasks",
+								"task-cards",
 								"2"
 							]
 						},
@@ -602,7 +602,7 @@
 					"response": []
 				},
 				{
-					"name": "/tasks/{id}/move",
+					"name": "/task-cards/{id}/move",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -615,19 +615,19 @@
 							"mode": "urlencoded",
 							"urlencoded": [
 								{
-									"key": "column_id",
+									"key": "columnId",
 									"value": "2",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{root}}/tasks/2/move",
+							"raw": "{{root}}/task-cards/2/move",
 							"host": [
 								"{{root}}"
 							],
 							"path": [
-								"tasks",
+								"task-cards",
 								"2",
 								"move"
 							]
@@ -636,7 +636,7 @@
 					"response": []
 				},
 				{
-					"name": "/tasks/{id}/assign",
+					"name": "/task-cards/{id}/assign",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -649,19 +649,19 @@
 							"mode": "urlencoded",
 							"urlencoded": [
 								{
-									"key": "user_id",
+									"key": "userId",
 									"value": "2",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{root}}/tasks/2/assign",
+							"raw": "{{root}}/task-cards/2/assign",
 							"host": [
 								"{{root}}"
 							],
 							"path": [
-								"tasks",
+								"task-cards",
 								"2",
 								"assign"
 							]
@@ -670,7 +670,7 @@
 					"response": []
 				},
 				{
-					"name": "/tasks/{id}/complete",
+					"name": "/task-cards/{id}/complete",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -680,12 +680,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{root}}/tasks/2/complete",
+							"raw": "{{root}}/task-cards/2/complete",
 							"host": [
 								"{{root}}"
 							],
 							"path": [
-								"tasks",
+								"task-cards",
 								"2",
 								"complete"
 							]
@@ -694,17 +694,17 @@
 					"response": []
 				},
 				{
-					"name": "/tasks/{id}",
+					"name": "/task-cards/{id}",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{root}}/tasks/2",
+							"raw": "{{root}}/task-cards/2",
 							"host": [
 								"{{root}}"
 							],
 							"path": [
-								"tasks",
+								"task-cards",
 								"2"
 							]
 						}
