@@ -33,8 +33,13 @@ jobs:
           max_attempts: 15
           polling_interval_seconds: 60
           command: |
-            dotnet restore empty/src/Inventiv.Todo.App.Service/Inventiv.Todo.App.Service.csproj
-            
+            if wget -q --method=HEAD https://api.nuget.org/v3-flatcontainer/Gazel/${{ steps.parse.outputs.version }}/Gazel.nuspec
+            then
+              echo "Nuget onaylandı!"
+              dotnet restore empty/src/Inventiv.Sample.App.Service/Inventiv.Sample.App.Service.csproj
+            else
+              exit 1
+            fi
   build-and-test:
     name: Build & Test
     needs: wait-for-publish
