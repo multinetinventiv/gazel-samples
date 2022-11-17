@@ -18,12 +18,12 @@ jobs:
       - name: Parse Version
         id: parse
         run: |
-          # 1. cat outputs content of Inventiv.Todo.App.Service.csproj file to stream editor (sed)
+          # 1. cat outputs content of Inventiv.Sample.App.Service.csproj file to stream editor (sed)
           # 2. first sed removes all lines except with Version info
           # 3. second sed removes roughness outside the version number
           # 4. third sed removes first dot on version number
           # 5. result is only version which is set to the $version variable
-          version=$(cat empty/src/Inventiv.Todo.App.Service/Inventiv.Todo.App.Service.csproj | sed -n '/Version/p' | sed '/[ \"<>=a-zA-Z\/]/ s///g' | sed 's/^.//')
+          version=$(cat empty/src/Inventiv.Sample.App.Service/Inventiv.Sample.App.Service.csproj | sed -n '/Version/p' | sed '/[ \"<>=a-zA-Z\/]/ s///g' | sed 's/^.//')
           # value of $version is set as a step output
           echo "version="$version >> $GITHUB_OUTPUT
       - name: Nuget check
