@@ -9,12 +9,12 @@ jobs:
       version: ${{ steps.parse.outputs.version }}
     steps:
       - name: Setup .NET
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v3
         with:
           dotnet-version: |
             6.0.x
       - name: Checkout Gazel Sample
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Parse Version
         id: parse
         run: |
@@ -49,9 +49,9 @@ jobs:
         os: [ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Setup .NET
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v3
         with:
           dotnet-version: |
             5.0.x
