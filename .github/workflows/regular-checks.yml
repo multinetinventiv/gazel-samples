@@ -12,7 +12,6 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: |
-            5.0.x
             6.0.x
       - name: Checkout Gazel Sample
         uses: actions/checkout@v2
@@ -34,13 +33,8 @@ jobs:
           max_attempts: 15
           polling_interval_seconds: 60
           command: |
-            if wget -q --method=HEAD https://api.nuget.org/v3-flatcontainer/Gazel/${{ steps.parse.outputs.version }}/Gazel.nuspec
-            then
-              echo "Nuget onaylandı!"
-              dotnet restore empty/src/Inventiv.Todo.App.Service/Inventiv.Todo.App.Service.csproj
-            else
-              exit 1
-            fi
+            dotnet restore empty/src/Inventiv.Todo.App.Service/Inventiv.Todo.App.Service.csproj
+            
   build-and-test:
     name: Build & Test
     needs: wait-for-publish
