@@ -36,7 +36,7 @@ jobs:
             if wget -q --method=HEAD https://api.nuget.org/v3-flatcontainer/Gazel/${{ steps.parse.outputs.version }}/Gazel.nuspec
             then
               echo "Nuget onaylandı!"
-              dotnet restore empty/src/Inventiv.Sample.App.Service/Inventiv.Sample.App.Service.csproj
+              cd to-do;dotnet restore -v n
             else
               exit 1
             fi
