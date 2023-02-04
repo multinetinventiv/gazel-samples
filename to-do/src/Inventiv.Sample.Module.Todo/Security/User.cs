@@ -9,14 +9,14 @@ namespace Inventiv.Sample.Module.Todo.Security;
 
 public class User : IUserService, IUserInfo, IAccount // User implements IAccount interface so that it can be used by Gazel for authentication and authorization
 {
-    private readonly IRepository<User> repository = default!;
-    private readonly IModuleContext context = default!;
+    private readonly IRepository<User> _repository = default!;
+    private readonly IModuleContext _context = default!;
 
     protected User() { }
     public User(IRepository<User> repository, IModuleContext context)
     {
-        this.repository = repository;
-        this.context = context;
+        _repository = repository;
+        _context = context;
     }
 
     public virtual int Id { get; protected set; }
@@ -34,17 +34,17 @@ public class User : IUserService, IUserInfo, IAccount // User implements IAccoun
         Email = email;
         Password = password;
 
-        repository.Insert(this);
+        _repository.Insert(this);
 
         return this;
     }
 
-    protected internal virtual UserSession CreateNewSession() => context.New<UserSession>().With(this);
+    protected internal virtual UserSession CreateNewSession() => _context.New<UserSession>().With(this);
 
-    public virtual List<TaskCard> GetTaskCards() => context.Query<TaskCards>().ByUser(this);
+    public virtual List<TaskCard> GetTaskCards() => _context.Query<TaskCards>().ByUser(this);
 
     public virtual List<Board> GetBoards() =>
-        context.Query<UserBoards>()
+        _context.Query<UserBoards>()
             .ByUser(this)
             .Select(ub => ub.Board)
             .ToList();

@@ -6,12 +6,12 @@ namespace Inventiv.Sample.Module.Todo;
 
 public class TaskCard : ITaskCardService, ITaskCardInfo
 {
-    private readonly IRepository<TaskCard> repository = default!;
+    private readonly IRepository<TaskCard> _repository = default!;
 
     protected TaskCard() { }
     public TaskCard(IRepository<TaskCard> repository)
     {
-        this.repository = repository;
+        _repository = repository;
     }
 
     public virtual int Id { get; protected set; }
@@ -23,7 +23,7 @@ public class TaskCard : ITaskCardService, ITaskCardInfo
         Name = name;
         Completed = false;
 
-        repository.Insert(this);
+        _repository.Insert(this);
 
         return this;
     }

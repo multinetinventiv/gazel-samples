@@ -10,16 +10,16 @@ namespace Inventiv.Sample.Module.Todo;
 
 public class TaskCard : ITaskCardService, ITaskCardInfo
 {
-    private readonly IRepository<TaskCard> repository = default!;
-    private readonly IMailService mailService = default!;
-    private readonly IModuleContext context = default!;
+    private readonly IRepository<TaskCard> _repository = default!;
+    private readonly IMailClient _mailClient = default!;
+    private readonly IModuleContext _context = default!;
 
     protected TaskCard() { }
-    public TaskCard(IRepository<TaskCard> repository, IMailService mailService, IModuleContext context)
+    public TaskCard(IRepository<TaskCard> repository, IMailClient mailClient, IModuleContext context)
     {
-        this.repository = repository;
-        this.mailService = mailService;
-        this.context = context;
+        _repository = repository;
+        _mailClient = mailClient;
+        _context = context;
     }
 
     public virtual int Id { get; protected set; }
@@ -37,9 +37,9 @@ public class TaskCard : ITaskCardService, ITaskCardInfo
 
         Column = column ?? throw new RequiredParameterIsMissing(nameof(column));
         Name = name;
-        DueDate = context.System.Now.AddDays(7);
+        DueDate = _context.System.Now.AddDays(7);
 
-        repository.Insert(this);
+        _repository.Insert(this);
 
         return this;
     }
@@ -54,7 +54,7 @@ public class TaskCard : ITaskCardService, ITaskCardInfo
         Notes = notes;
         DueDate = dueDate;
 
-        if (DueDate > context.System.Now)
+        if (DueDate > _context.System.Now)
         {
             Reminded = false;
         }
@@ -70,7 +70,7 @@ public class TaskCard : ITaskCardService, ITaskCardInfo
     {
         if (User != null && !User.Email.IsDefault())
         {
-            mailService.Send(
+            _mailClient.Send(
                 User.Email.Value,
                 $"Reminder of task: {Name}",
                 $"{Name}<br/><br/>{Notes}"
@@ -99,7 +99,7 @@ public class TaskCard : ITaskCardService, ITaskCardInfo
         User = user;
     }
 
-    public virtual void Delete() => repository.Delete(this);
+    public virtual void Delete() => _repository.Delete(this);
 }
 
 public class TaskCards : Query<TaskCard>, ITaskCardsService

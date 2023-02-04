@@ -7,42 +7,42 @@ using System.Text;
 
 using Component = Castle.MicroKernel.Registration.Component;
 
-namespace Inventiv.Sample.App.Service.ExternalServices;
+namespace Inventiv.Sample.App.Service.Plugins;
 
 /// <summary>
-/// Registers an smtp mail service implementation for IMailService
+/// Registers an smtp mail client implementation for IMailClient
 /// </summary>
-public class SmtpMail : IIoCConfiguration
+public class SmtpMailPlugin : IIoCConfiguration
 {
     public void Configure(IKernel kernel)
     {
         // Windsor registration
         kernel.Register(
          Component
-                .For<IMailService>()
-                .ImplementedBy<Implementation>()
+                .For<IMailClient>()
+                .ImplementedBy<SmtpMailClient>()
                 .LifestyleSingleton()
      );
     }
 
     /// <summary>
-    /// Smtp implementation for IMailService
+    /// Smtp mail client implementation for IMailClient
     /// </summary>
-    public class Implementation : IMailService // TIP: When the implementation is not complex, we prefer to include it within configuration class
+    public class SmtpMailClient : IMailClient // TIP: When the implementation is not complex, we prefer to include it within configuration class
     {
-        private readonly IModuleContext context;
+        private readonly IModuleContext _context;
 
-        public Implementation(IModuleContext context)
+        public SmtpMailClient(IModuleContext context)
         {
-            this.context = context;
+            _context = context;
         }
 
         public void Send(string to, string subject, string content)
         {
             // Below you can see how to access web.config
-            var from = context.Settings.Get<string>("SmtpMail.From");
-            var smtpAddress = context.Settings.Get<string>("SmtpMail.SmtpAddress");
-            var smtpPort = context.Settings.Get<int>("SmtpMail.SmtpPort");
+            var from = _context.Settings.Get<string>("SmtpMail.From");
+            var smtpAddress = _context.Settings.Get<string>("SmtpMail.SmtpAddress");
+            var smtpPort = _context.Settings.Get<int>("SmtpMail.SmtpPort");
 
             var mailMessage = new MailMessage
             {

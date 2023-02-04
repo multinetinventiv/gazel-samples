@@ -9,14 +9,14 @@ namespace Inventiv.Sample.Module.Todo;
 
 public class Board : IBoardService, IBoardInfo, IBoardDetail
 {
-    private readonly IRepository<Board> repository = default!;
-    private readonly IModuleContext context = default!;
+    private readonly IRepository<Board> _repository = default!;
+    private readonly IModuleContext _context = default!;
 
     protected Board() { }
     public Board(IRepository<Board> repository, IModuleContext context)
     {
-        this.repository = repository;
-        this.context = context;
+        _repository = repository;
+        _context = context;
     }
 
     public virtual int Id { get; protected set; }
@@ -26,11 +26,11 @@ public class Board : IBoardService, IBoardInfo, IBoardDetail
     {
         Update(name);
 
-        repository.Insert(this);
+        _repository.Insert(this);
 
         // you can access current session through context.Session
         // this session object is the one that returned in SecurityManager.GetSession method
-        if (context.Session.Account is User user)
+        if (_context.Session.Account is User user)
         {
             AddUser(user);
         }
@@ -45,26 +45,26 @@ public class Board : IBoardService, IBoardInfo, IBoardDetail
         Name = name;
     }
 
-    public virtual Column AddColumn(string name) => context.New<Column>().With(this, name);
+    public virtual Column AddColumn(string name) => _context.New<Column>().With(this, name);
 
-    public virtual List<Column> GetColumns() => context.Query<Columns>().ByBoard(this);
+    public virtual List<Column> GetColumns() => _context.Query<Columns>().ByBoard(this);
 
-    public virtual List<User> GetUsers() => context.Query<UserBoards>()
+    public virtual List<User> GetUsers() => _context.Query<UserBoards>()
             .ByBoard(this)
             .Select(ub => ub.User)
             .ToList();
 
-    public virtual void AddUser(User user) => context.New<UserBoard>().With(this, user);
+    public virtual void AddUser(User user) => _context.New<UserBoard>().With(this, user);
 
-    public virtual void RemoveUser(User user) => context.Query<UserBoards>().SingleBy(this, user)?.Delete();
+    public virtual void RemoveUser(User user) => _context.Query<UserBoards>().SingleBy(this, user)?.Delete();
 
-    protected internal virtual bool HasUser(User user) => context.Query<UserBoards>().CountBy(this, user) > 0;
+    protected internal virtual bool HasUser(User user) => _context.Query<UserBoards>().CountBy(this, user) > 0;
 
     public virtual void Delete()
     {
         GetColumns().ForEach(c => c.Delete());
 
-        repository.Delete(this);
+        _repository.Delete(this);
     }
 
     List<IColumnDetail> IBoardDetail.Columns => GetColumns().Cast<IColumnDetail>().ToList();

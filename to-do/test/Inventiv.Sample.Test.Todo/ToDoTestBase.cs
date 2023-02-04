@@ -14,9 +14,9 @@ namespace Inventiv.Sample.Test.Todo;
 /// </summary>
 public abstract class ToDoTestBase : TestBase
 {
-    protected SecurityManager securityManager = default!;
-    protected TodoManager todoManager = default!;
-    protected Mock<IMailService> mockMailService = default!;
+    protected SecurityManager _securityManager = default!;
+    protected TodoManager _todoManager = default!;
+    protected Mock<IMailClient> _mockMailClient = default!;
 
     static ToDoTestBase()
     {
@@ -27,10 +27,10 @@ public abstract class ToDoTestBase : TestBase
     {
         base.SetUp();
 
-        mockMailService = CreateMock<IMailService>(true);
+        _mockMailClient = CreateMock<IMailClient>(true);
 
-        securityManager = Context.Get<SecurityManager>();
-        todoManager = Context.Get<TodoManager>();
+        _securityManager = Context.Get<SecurityManager>();
+        _todoManager = Context.Get<TodoManager>();
 
         SetUpSession(CreateAnonymousSession());
     }
@@ -67,7 +67,7 @@ public abstract class ToDoTestBase : TestBase
             SetUpTime(Context.System.Now.AddDays(-1).AddMilliseconds(-1));
         }
 
-        var result = securityManager.Login(user.Email, Password.Parse("1234"));
+        var result = _securityManager.Login(user.Email, Password.Parse("1234"));
 
         if (expired)
         {

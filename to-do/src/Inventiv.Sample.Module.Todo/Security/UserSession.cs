@@ -7,14 +7,14 @@ namespace Inventiv.Sample.Module.Todo.Security;
 
 public class UserSession : IAuditable, ISession, ISessionInfo
 {
-    private readonly IRepository<UserSession> repository = default!;
-    private readonly IModuleContext context = default!;
+    private readonly IRepository<UserSession> _repository = default!;
+    private readonly IModuleContext _context = default!;
 
     protected UserSession() { }
     public UserSession(IRepository<UserSession> repository, IModuleContext context)
     {
-        this.repository = repository;
-        this.context = context;
+        _repository = repository;
+        _context = context;
     }
 
     public virtual int Id { get; protected set; }
@@ -29,18 +29,18 @@ public class UserSession : IAuditable, ISession, ISessionInfo
         User = user;
 
         // context.System makes it possible to mock new guid & app token generations and system time.
-        Token = context.System.NewAppToken();
-        ExpireDateTime = context.System.Now.AddDays(1);
-        Host = context.Request.Host.ToString();
+        Token = _context.System.NewAppToken();
+        ExpireDateTime = _context.System.Now.AddDays(1);
+        Host = _context.Request.Host.ToString();
 
-        repository.Insert(this);
+        _repository.Insert(this);
 
         return this;
     }
 
     protected internal virtual void Validate()
     {
-        if (context.System.Now > ExpireDateTime)
+        if (_context.System.Now > ExpireDateTime)
         {
             throw new AuthenticationRequiredException(); // This exception comes from Gazel and is a handled exception with error code 20001
         }

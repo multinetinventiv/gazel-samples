@@ -8,14 +8,14 @@ namespace Inventiv.Sample.Module.Todo;
 
 public class Column : IColumnService, IColumnInfo, IColumnDetail
 {
-    private readonly IRepository<Column> repository = default!;
-    private readonly IModuleContext context = default!;
+    private readonly IRepository<Column> _repository = default!;
+    private readonly IModuleContext _context = default!;
 
     protected Column() { }
     public Column(IRepository<Column> repository, IModuleContext context)
     {
-        this.repository = repository;
-        this.context = context;
+        _repository = repository;
+        _context = context;
     }
 
     public virtual int Id { get; protected set; }
@@ -28,7 +28,7 @@ public class Column : IColumnService, IColumnInfo, IColumnDetail
 
         Update(name);
 
-        repository.Insert(this);
+        _repository.Insert(this);
 
         return this;
     }
@@ -40,15 +40,15 @@ public class Column : IColumnService, IColumnInfo, IColumnDetail
         Name = name;
     }
 
-    public virtual TaskCard AddTaskCard(string name) => context.New<TaskCard>().With(this, name);
+    public virtual TaskCard AddTaskCard(string name) => _context.New<TaskCard>().With(this, name);
 
-    public virtual List<TaskCard> GetTaskCards() => context.Query<TaskCards>().ByColumn(this);
+    public virtual List<TaskCard> GetTaskCards() => _context.Query<TaskCards>().ByColumn(this);
 
     public virtual void Delete()
     {
         Clear();
 
-        repository.Delete(this);
+        _repository.Delete(this);
     }
 
     public virtual void Clear() => GetTaskCards().ForEach(t => t.Delete());

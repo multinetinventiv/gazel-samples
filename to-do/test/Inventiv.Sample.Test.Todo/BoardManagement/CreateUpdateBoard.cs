@@ -10,7 +10,7 @@ public class CreateUpdateBoard : ToDoTestBase
     {
         BeginTest();
 
-        var board = todoManager.CreateBoard("board");
+        var board = _todoManager.CreateBoard("board");
 
         Verify.ObjectIsPersisted(board);
         Assert.AreEqual("board", board.Name);
@@ -36,7 +36,7 @@ public class CreateUpdateBoard : ToDoTestBase
 
         BeginTest();
 
-        var board = todoManager.CreateBoard(AString());
+        var board = _todoManager.CreateBoard(AString());
 
         Assert.AreEqual(0, board.GetUsers().Count);
     }
@@ -48,7 +48,7 @@ public class CreateUpdateBoard : ToDoTestBase
 
         BeginTest();
 
-        var board = todoManager.CreateBoard(AString());
+        var board = _todoManager.CreateBoard(AString());
         var users = board.GetUsers();
 
         Assert.AreEqual(1, users.Count);

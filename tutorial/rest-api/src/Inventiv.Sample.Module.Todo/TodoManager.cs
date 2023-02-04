@@ -5,16 +5,16 @@ namespace Inventiv.Sample.Module.Todo;
 
 public class TodoManager : ITaskCardManagerService
 {
-    private readonly IModuleContext context;
+    private readonly IModuleContext _context;
 
     public TodoManager(IModuleContext context)
     {
-        this.context = context;
+        _context = context;
     }
 
     public TaskCard CreateTaskCard(string? name)
     {
-        return context.New<TaskCard>().With(name);
+        return _context.New<TaskCard>().With(name);
     }
 
     ITaskCardInfo ITaskCardManagerService.CreateTaskCard(string? name) =>

@@ -10,7 +10,7 @@ public class Authentication : ToDoTestBase
     {
         BeginTest();
 
-        var user = securityManager.CreateUser("test", Email.Parse("test@gazel.io"), APassword());
+        var user = _securityManager.CreateUser("test", Email.Parse("test@gazel.io"), APassword());
 
         Verify.ObjectIsPersisted(user);
         Assert.AreEqual("test", user.Name);
@@ -30,7 +30,7 @@ public class Authentication : ToDoTestBase
 
         BeginTest();
 
-        var session = securityManager.Login(Email.Parse("test@gazel.io"), Password.Parse("1234"));
+        var session = _securityManager.Login(Email.Parse("test@gazel.io"), Password.Parse("1234"));
 
         Assert.AreEqual("test_token", session.Token.ToString());
         Assert.AreEqual(DT("20180212", "173801"), session.ExpireDateTime);

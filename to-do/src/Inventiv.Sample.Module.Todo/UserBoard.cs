@@ -8,12 +8,12 @@ namespace Inventiv.Sample.Module.Todo;
 
 public class UserBoard
 {
-    private readonly IRepository<UserBoard> repository = default!;
+    private readonly IRepository<UserBoard> _repository = default!;
 
     protected UserBoard() { }
     public UserBoard(IRepository<UserBoard> repository)
     {
-        this.repository = repository;
+        _repository = repository;
     }
 
     public virtual int Id { get; protected set; }
@@ -29,12 +29,12 @@ public class UserBoard
         Board = board;
         User = user;
 
-        repository.Insert(this);
+        _repository.Insert(this);
 
         return this;
     }
 
-    protected internal virtual void Delete() => repository.Delete(this);
+    protected internal virtual void Delete() => _repository.Delete(this);
 }
 
 public class UserBoards : Query<UserBoard>

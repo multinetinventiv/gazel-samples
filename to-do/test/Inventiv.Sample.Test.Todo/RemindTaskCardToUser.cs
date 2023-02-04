@@ -23,7 +23,7 @@ public class RemindTaskCardToUser : ToDoTestBase
 
         Context.New<ReminderJob>().Execute();
 
-        mockMailService.Verify(
+        _mockMailClient.Verify(
             ms => ms.Send(
                 "test@gazel.io",
                 It.Is<string>(sbj => sbj.Contains("test task")),
@@ -46,7 +46,7 @@ public class RemindTaskCardToUser : ToDoTestBase
 
         Context.New<ReminderJob>().Execute();
 
-        mockMailService.Verify(
+        _mockMailClient.Verify(
             ms => ms.Send(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()),
             Times.Once()
         );
@@ -71,7 +71,7 @@ public class RemindTaskCardToUser : ToDoTestBase
 
         Context.New<ReminderJob>().Execute();
 
-        mockMailService.Verify(
+        _mockMailClient.Verify(
             ms => ms.Send(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()),
             Times.Exactly(2)
         );

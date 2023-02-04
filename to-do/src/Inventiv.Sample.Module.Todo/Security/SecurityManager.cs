@@ -6,18 +6,18 @@ namespace Inventiv.Sample.Module.Todo.Security;
 
 public class SecurityManager : ISessionManager, IUserManagerService, IAuthManagerService
 {
-    private readonly IModuleContext context;
+    private readonly IModuleContext _context;
 
     public SecurityManager(IModuleContext context)
     {
-        this.context = context;
+        _context = context;
     }
 
-    public User CreateUser(string name, Email email, Password password) => context.New<User>().With(name, email, password);
+    public User CreateUser(string name, Email email, Password password) => _context.New<User>().With(name, email, password);
 
     public UserSession Login(Email email, Password password)
     {
-        var user = context.Query<Users>().SingleBy(email, password);
+        var user = _context.Query<Users>().SingleBy(email, password);
 
         if (user == null)
         {
@@ -31,10 +31,10 @@ public class SecurityManager : ISessionManager, IUserManagerService, IAuthManage
     {
         if (appToken.IsEmpty)
         {
-            return context.New<AnonymousSession>();
+            return _context.New<AnonymousSession>();
         }
 
-        return context.Query<UserSessions>().SingleByToken(appToken);
+        return _context.Query<UserSessions>().SingleByToken(appToken);
     }
 
     ISession ISessionManager.GetSession(AppToken appToken) => GetSession(appToken);
