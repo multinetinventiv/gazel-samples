@@ -22,7 +22,7 @@ public class TodoTest : TestBase
         var actual = todoManager.CreateTaskCard("Write Tests");
 
         Verify.ObjectIsPersisted(actual);
-        Assert.AreEqual("Write Tests", actual.Name);
+        Assert.That(actual.Name, Is.EqualTo("Write Tests"));
     }
 
     [Test]
@@ -35,7 +35,7 @@ public class TodoTest : TestBase
 
         taskCard.Complete();
 
-        Assert.IsTrue(taskCard.Completed);
+        Assert.That(taskCard.Completed, Is.True);
     }
 
     [Test]
@@ -51,8 +51,8 @@ public class TodoTest : TestBase
 
         var actual = Context.Query<TaskCards>().ByCompleted(true);
 
-        Assert.AreEqual(2, actual.Count);
-        Assert.AreEqual("completed 1", actual[0].Name);
-        Assert.AreEqual("completed 2", actual[1].Name);
+        Assert.That(actual.Count, Is.EqualTo(2));
+        Assert.That(actual[0].Name, Is.EqualTo("completed 1"));
+        Assert.That(actual[1].Name, Is.EqualTo("completed 2"));
     }
 }

@@ -33,10 +33,10 @@ public class DeleteColumn : ToDoTestBase
 
         Verify.ObjectIsDeleted(fromColumn);
 
-        Assert.AreEqual(0, fromColumn.GetTaskCards().Count);
-        Assert.AreEqual(2, toColumn.GetTaskCards().Count);
+        Assert.That(fromColumn.GetTaskCards().Count, Is.EqualTo(0));
+        Assert.That(toColumn.GetTaskCards().Count, Is.EqualTo(2));
 
-        Assert.AreEqual(toColumn, taskCards[0].Column);
-        Assert.AreEqual(toColumn, taskCards[1].Column);
+        Assert.That(taskCards[0].Column, Is.EqualTo(toColumn));
+        Assert.That(taskCards[1].Column, Is.EqualTo(toColumn));
     }
 }

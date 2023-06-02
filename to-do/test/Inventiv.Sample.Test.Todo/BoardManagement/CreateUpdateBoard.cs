@@ -13,7 +13,7 @@ public class CreateUpdateBoard : ToDoTestBase
         var board = _todoManager.CreateBoard("board");
 
         Verify.ObjectIsPersisted(board);
-        Assert.AreEqual("board", board.Name);
+        Assert.That(board.Name, Is.EqualTo("board"));
     }
 
     [TestCase(null)]
@@ -23,10 +23,7 @@ public class CreateUpdateBoard : ToDoTestBase
     {
         BeginTest();
 
-        Assert.Throws<TodoExceptions.RequiredParameterIsMissing>(() =>
-        {
-            CreateBoard(name);
-        });
+        Assert.That(() => CreateBoard(name), Throws.TypeOf<TodoExceptions.RequiredParameterIsMissing>());
     }
 
     [Test]
@@ -38,7 +35,7 @@ public class CreateUpdateBoard : ToDoTestBase
 
         var board = _todoManager.CreateBoard(AString());
 
-        Assert.AreEqual(0, board.GetUsers().Count);
+        Assert.That(board.GetUsers().Count, Is.EqualTo(0));
     }
 
     [Test]
@@ -51,8 +48,8 @@ public class CreateUpdateBoard : ToDoTestBase
         var board = _todoManager.CreateBoard(AString());
         var users = board.GetUsers();
 
-        Assert.AreEqual(1, users.Count);
-        Assert.AreEqual(Context.Session.Account, users[0]);
+        Assert.That(users.Count, Is.EqualTo(1));
+        Assert.That(users[0], Is.EqualTo(Context.Session.Account));
     }
 
     [Test]
@@ -64,7 +61,7 @@ public class CreateUpdateBoard : ToDoTestBase
 
         board.Update("newBoard");
 
-        Assert.AreEqual("newBoard", board.Name);
+        Assert.That(board.Name, Is.EqualTo("newBoard"));
     }
 
     [TestCase(null)]
@@ -76,9 +73,6 @@ public class CreateUpdateBoard : ToDoTestBase
 
         BeginTest();
 
-        Assert.Throws<TodoExceptions.RequiredParameterIsMissing>(() =>
-        {
-            board.Update(name);
-        });
+        Assert.That(() => board.Update(name), Throws.TypeOf<TodoExceptions.RequiredParameterIsMissing>());
     }
 }

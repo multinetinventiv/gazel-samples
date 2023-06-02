@@ -15,11 +15,11 @@ public class CreateUpdateTaskCard : ToDoTestBase
         var taskCard = column.AddTaskCard("task");
 
         Verify.ObjectIsPersisted(taskCard);
-        Assert.AreEqual("task", taskCard.Name);
+        Assert.That(taskCard.Name, Is.EqualTo("task"));
 
         var taskCards = column.GetTaskCards();
-        Assert.AreEqual(1, taskCards.Count);
-        Assert.AreEqual(taskCard, taskCards[0]);
+        Assert.That(taskCards.Count, Is.EqualTo(1));
+        Assert.That(taskCards[0], Is.EqualTo(taskCard));
     }
 
     [TestCase(null)]
@@ -31,10 +31,7 @@ public class CreateUpdateTaskCard : ToDoTestBase
 
         BeginTest();
 
-        Assert.Throws<TodoExceptions.RequiredParameterIsMissing>(() =>
-        {
-            column.AddTaskCard(name);
-        });
+        Assert.That(() => column.AddTaskCard(name), Throws.TypeOf<TodoExceptions.RequiredParameterIsMissing>());
     }
 
     [Test]
@@ -46,8 +43,8 @@ public class CreateUpdateTaskCard : ToDoTestBase
 
         taskCard.Update("test", "notes");
 
-        Assert.AreEqual("test", taskCard.Name);
-        Assert.AreEqual("notes", taskCard.Notes);
+        Assert.That(taskCard.Name, Is.EqualTo("test"));
+        Assert.That(taskCard.Notes, Is.EqualTo("notes"));
     }
 
     [TestCase(null, null)]
@@ -59,12 +56,9 @@ public class CreateUpdateTaskCard : ToDoTestBase
 
         BeginTest();
 
-        Assert.DoesNotThrow(() =>
-        {
-            taskCard.Update(name, notes);
-        });
+        Assert.That(() => taskCard.Update(name, notes), Throws.Nothing);
 
-        Assert.AreEqual("task", taskCard.Name);
-        Assert.AreEqual("notes", taskCard.Notes);
+        Assert.That(taskCard.Name, Is.EqualTo("task"));
+        Assert.That(taskCard.Notes, Is.EqualTo("notes"));
     }
 }

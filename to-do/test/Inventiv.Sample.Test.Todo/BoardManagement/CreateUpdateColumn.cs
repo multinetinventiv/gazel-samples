@@ -15,12 +15,12 @@ public class CreateUpdateColumn : ToDoTestBase
         var column = board.AddColumn("column");
 
         Verify.ObjectIsPersisted(column);
-        Assert.AreEqual("column", column.Name);
+        Assert.That(column.Name, Is.EqualTo("column"));
 
         var boardColumns = board.GetColumns();
 
-        Assert.AreEqual(1, boardColumns.Count);
-        Assert.AreEqual(column, boardColumns[0]);
+        Assert.That(boardColumns.Count, Is.EqualTo(1));
+        Assert.That(boardColumns[0], Is.EqualTo(column));
     }
 
     [TestCase(null)]
@@ -32,10 +32,7 @@ public class CreateUpdateColumn : ToDoTestBase
 
         BeginTest();
 
-        Assert.Throws<TodoExceptions.RequiredParameterIsMissing>(() =>
-        {
-            board.AddColumn(name);
-        });
+        Assert.That(() => board.AddColumn(name), Throws.TypeOf<TodoExceptions.RequiredParameterIsMissing>());
     }
 
     [Test]
@@ -47,7 +44,7 @@ public class CreateUpdateColumn : ToDoTestBase
 
         column.Update("newTest");
 
-        Assert.AreEqual("newTest", column.Name);
+        Assert.That(column.Name, Is.EqualTo("newTest"));
     }
 
     [TestCase(null)]
@@ -59,10 +56,7 @@ public class CreateUpdateColumn : ToDoTestBase
 
         BeginTest();
 
-        Assert.Throws<TodoExceptions.RequiredParameterIsMissing>(() =>
-        {
-            column.Update(name);
-        });
+        Assert.That(() => column.Update(name), Throws.TypeOf<TodoExceptions.RequiredParameterIsMissing>());
     }
 
     [Test]
@@ -75,7 +69,7 @@ public class CreateUpdateColumn : ToDoTestBase
 
         column.Clear();
 
-        Assert.IsEmpty(column.GetTaskCards());
+        Assert.That(column.GetTaskCards(), Is.Empty);
         Verify.ObjectIsDeleted(taskCards[0]);
         Verify.ObjectIsDeleted(taskCards[1]);
     }

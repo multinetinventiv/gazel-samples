@@ -17,6 +17,6 @@ public class TodoTest : TestBase
     {
         var todoManager = Context.Get<TodoManager>();
 
-        Assert.AreEqual("Hello World!", todoManager.SayHello());
+        Assert.That(todoManager.SayHello(), Is.EqualTo("Hello World!"));
     }
 }

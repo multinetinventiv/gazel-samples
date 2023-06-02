@@ -22,6 +22,6 @@ public class TodoTest : TestBase
         var actual = todoManager.CreateTaskCard("Write Tests");
 
         Verify.ObjectIsPersisted(actual);
-        Assert.AreEqual("Write Tests", actual.Name);
+        Assert.That(actual.Name, Is.EqualTo("Write Tests"));
     }
 }

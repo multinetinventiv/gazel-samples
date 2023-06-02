@@ -16,9 +16,9 @@ public class AssignTaskCardToUser : ToDoTestBase
         taskCard.Assign(user);
 
         var taskCards = user.GetTaskCards();
-        Assert.AreEqual(1, taskCards.Count);
-        Assert.AreEqual(taskCard.Name, taskCards[0].Name);
-        Assert.AreEqual(user, taskCard.User);
+        Assert.That(taskCards.Count, Is.EqualTo(1));
+        Assert.That(taskCards[0].Name, Is.EqualTo(taskCard.Name));
+        Assert.That(taskCard.User, Is.EqualTo(user));
     }
 
     [Test]
@@ -33,7 +33,7 @@ public class AssignTaskCardToUser : ToDoTestBase
 
         taskCard.Assign(newUser);
 
-        Assert.IsEmpty(oldUser.GetTaskCards());
+        Assert.That(oldUser.GetTaskCards(), Is.Empty);
     }
 
     [Test]
@@ -44,9 +44,6 @@ public class AssignTaskCardToUser : ToDoTestBase
 
         BeginTest();
 
-        Assert.Throws<TodoExceptions.UserIsNotAddedToBoard>(() =>
-        {
-            taskCard.Assign(user);
-        });
+        Assert.That(() => taskCard.Assign(user), Throws.TypeOf<TodoExceptions.UserIsNotAddedToBoard>());
     }
 }

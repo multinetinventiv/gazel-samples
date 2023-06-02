@@ -16,7 +16,7 @@ public class MoveTaskCardToColumn : ToDoTestBase
 
         taskCard.Move(toColumn);
 
-        Assert.AreEqual(taskCard.Name, toColumn.GetTaskCards()[0].Name);
+        Assert.That(toColumn.GetTaskCards()[0].Name, Is.EqualTo(taskCard.Name));
     }
 
     [Test]
@@ -27,6 +27,6 @@ public class MoveTaskCardToColumn : ToDoTestBase
 
         BeginTest();
 
-        Assert.Throws<TodoExceptions.ColumnDoesNotBelongToBoard>(() => taskCard.Move(targetColumn));
+        Assert.That(() => taskCard.Move(targetColumn), Throws.TypeOf<TodoExceptions.ColumnDoesNotBelongToBoard>());
     }
 }

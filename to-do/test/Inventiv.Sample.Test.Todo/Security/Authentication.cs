@@ -13,8 +13,8 @@ public class Authentication : ToDoTestBase
         var user = _securityManager.CreateUser("test", Email.Parse("test@gazel.io"), APassword());
 
         Verify.ObjectIsPersisted(user);
-        Assert.AreEqual("test", user.Name);
-        Assert.AreEqual("test@gazel.io", user.Email.Value);
+        Assert.That(user.Name, Is.EqualTo("test"));
+        Assert.That(user.Email.Value, Is.EqualTo("test@gazel.io"));
     }
 
     [Test]
@@ -32,8 +32,8 @@ public class Authentication : ToDoTestBase
 
         var session = _securityManager.Login(Email.Parse("test@gazel.io"), Password.Parse("1234"));
 
-        Assert.AreEqual("test_token", session.Token.ToString());
-        Assert.AreEqual(DT("20180212", "173801"), session.ExpireDateTime);
+        Assert.That(session.Token.ToString(), Is.EqualTo("test_token"));
+        Assert.That(session.ExpireDateTime, Is.EqualTo(DT("20180212", "173801")));
     }
 
     [Test]
@@ -47,6 +47,6 @@ public class Authentication : ToDoTestBase
 
         BeginTest();
 
-        Assert.Throws<AuthenticationRequiredException>(() => Context.Session.Validate());
+        Assert.That(() => Context.Session.Validate(), Throws.TypeOf<AuthenticationRequiredException>());
     }
 }

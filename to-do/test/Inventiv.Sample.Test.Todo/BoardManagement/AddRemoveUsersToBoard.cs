@@ -17,13 +17,13 @@ public class AddRemoveUsersToBoard : ToDoTestBase
 
         var boardUsers = board.GetUsers();
 
-        Assert.AreEqual(1, boardUsers.Count);
-        Assert.AreEqual(user, boardUsers[0]);
+        Assert.That(boardUsers.Count, Is.EqualTo(1));
+        Assert.That(boardUsers[0], Is.EqualTo(user));
 
         var userBoards = user.GetBoards();
 
-        Assert.AreEqual(1, userBoards.Count);
-        Assert.AreEqual(board, userBoards[0]);
+        Assert.That(userBoards.Count, Is.EqualTo(1));
+        Assert.That(userBoards[0], Is.EqualTo(board));
     }
 
     [Test]
@@ -34,10 +34,7 @@ public class AddRemoveUsersToBoard : ToDoTestBase
 
         BeginTest();
 
-        Assert.Throws<TodoExceptions.UserAlreadyAddedToBoard>(() =>
-        {
-            board.AddUser(user);
-        });
+        Assert.That(() => board.AddUser(user), Throws.TypeOf<TodoExceptions.UserAlreadyAddedToBoard>());
     }
 
     [Test]
@@ -47,7 +44,7 @@ public class AddRemoveUsersToBoard : ToDoTestBase
 
         BeginTest();
 
-        Assert.Throws<TodoExceptions.RequiredParameterIsMissing>(() => board.AddUser(null!));
+        Assert.That(() => board.AddUser(null!), Throws.TypeOf<TodoExceptions.RequiredParameterIsMissing>());
     }
 
     [Test]
@@ -63,9 +60,9 @@ public class AddRemoveUsersToBoard : ToDoTestBase
 
         var userList = board.GetUsers();
 
-        Assert.AreEqual(2, userList.Count);
-        Assert.AreEqual("user 1", userList[0].Name);
-        Assert.AreEqual("user 2", userList[1].Name);
+        Assert.That(userList.Count, Is.EqualTo(2));
+        Assert.That(userList[0].Name, Is.EqualTo("user 1"));
+        Assert.That(userList[1].Name, Is.EqualTo("user 2"));
     }
 
     [Test]
@@ -78,7 +75,7 @@ public class AddRemoveUsersToBoard : ToDoTestBase
 
         board.RemoveUser(user);
 
-        Assert.IsEmpty(board.GetUsers());
+        Assert.That(board.GetUsers(), Is.Empty);
     }
 
     [Test]
@@ -89,9 +86,6 @@ public class AddRemoveUsersToBoard : ToDoTestBase
 
         BeginTest();
 
-        Assert.DoesNotThrow(() =>
-        {
-            board.RemoveUser(user);
-        });
+        Assert.That(() => board.RemoveUser(user), Throws.Nothing);
     }
 }

@@ -22,7 +22,7 @@ public class TodoTest : TestBase
         var actual = todoManager.CreateTaskCard("Write Tests");
 
         Verify.ObjectIsPersisted(actual);
-        Assert.AreEqual("Write Tests", actual.Name);
+        Assert.That(actual.Name, Is.EqualTo("Write Tests"));
     }
 
     [Test]
@@ -35,6 +35,6 @@ public class TodoTest : TestBase
 
         taskCard.Complete();
 
-        Assert.IsTrue(taskCard.Completed);
+        Assert.That(taskCard.Completed, Is.True);
     }
 }

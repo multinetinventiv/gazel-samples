@@ -13,7 +13,7 @@ public class ClearColumn : ToDoTestBase
 
         column.Clear();
 
-        Assert.IsEmpty(column.GetTaskCards());
+        Assert.That(column.GetTaskCards(), Is.Empty);
         Verify.ObjectIsDeleted(taskCards[0]);
         Verify.ObjectIsDeleted(taskCards[1]);
     }
