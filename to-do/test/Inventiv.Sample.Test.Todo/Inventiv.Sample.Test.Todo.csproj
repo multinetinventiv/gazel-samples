@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Inventiv.Sample.Module.Todo\Inventiv.Sample.Module.Todo.csproj" />
-    <PackageReference Include="Gazel.Configuration" Version="8.0.1" />
+    <PackageReference Include="Gazel.Configuration" Version="8.0.2" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.1" />
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
