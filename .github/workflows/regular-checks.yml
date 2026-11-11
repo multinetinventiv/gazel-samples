@@ -1,4 +1,4 @@
-name: Regular Checks
+﻿name: Regular Checks
 on: push
 jobs:
   wait-for-publish:
@@ -12,7 +12,7 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: |
-            6.0.x
+            10.0.x
       - name: Checkout Gazel Sample
         uses: actions/checkout@v3
       - name: Parse Version
@@ -33,7 +33,7 @@ jobs:
           max_attempts: 15
           polling_interval_seconds: 60
           command: |
-            if wget -q --method=HEAD https://api.nuget.org/v3-flatcontainer/Gazel/${{ steps.parse.outputs.version }}/Gazel.nuspec
+            if wget --method=HEAD https://api.nuget.org/v3-flatcontainer/Gazel/${{ steps.parse.outputs.version }}/Gazel.nuspec
             then
               echo "Nuget onaylandı!"
               cd to-do;dotnet restore -v n
@@ -54,7 +54,7 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: |
-            6.0.x
+            10.0.x
       - name: empty
         working-directory: empty
         run: |
