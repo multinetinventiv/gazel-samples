@@ -33,7 +33,8 @@ jobs:
           max_attempts: 15
           polling_interval_seconds: 60
           command: |
-            if wget --method=HEAD https://api.nuget.org/v3-flatcontainer/Gazel/${{ steps.parse.outputs.version }}/Gazel.nuspec
+            # flat container paths must be lowercase; uppercase hits Azure Blob case-sensitively and 404s
+            if wget --method=HEAD https://api.nuget.org/v3-flatcontainer/gazel/${{ steps.parse.outputs.version }}/gazel.nuspec
             then
               echo "Nuget onaylandı!"
               cd to-do;dotnet restore -v n
